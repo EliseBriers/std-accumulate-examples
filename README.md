@@ -1,0 +1,1 @@
+# std-accumulate-examples
