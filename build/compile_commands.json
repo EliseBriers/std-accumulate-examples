@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/elise/Workspace/cpp/std-accumulate-examples/build",
+  "command": "/usr/bin/c++  -I/home/elise/Workspace/cpp/std-accumulate-examples/catch2  -o CMakeFiles/std_accumulate_examples.dir/main.cpp.o -c /home/elise/Workspace/cpp/std-accumulate-examples/main.cpp",
+  "file": "/home/elise/Workspace/cpp/std-accumulate-examples/main.cpp"
+},
+{
+  "directory": "/home/elise/Workspace/cpp/std-accumulate-examples/build",
+  "command": "/usr/bin/c++  -I/home/elise/Workspace/cpp/std-accumulate-examples/catch2  -o CMakeFiles/std_accumulate_examples.dir/catch2/catch_amalgamated.cpp.o -c /home/elise/Workspace/cpp/std-accumulate-examples/catch2/catch_amalgamated.cpp",
+  "file": "/home/elise/Workspace/cpp/std-accumulate-examples/catch2/catch_amalgamated.cpp"
+}
+]
