@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/std_accumulate_examples.dir/main.cpp.o CMakeFiles/std_accumulate_examples.dir/catch2/catch_amalgamated.cpp.o -o std_accumulate_examples 

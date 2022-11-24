@@ -1,3 +1,0 @@
-/home/elise/Workspace/cpp/std-accumulate-examples/build/CMakeFiles/std_accumulate_examples.dir
-/home/elise/Workspace/cpp/std-accumulate-examples/build/CMakeFiles/edit_cache.dir
-/home/elise/Workspace/cpp/std-accumulate-examples/build/CMakeFiles/rebuild_cache.dir
