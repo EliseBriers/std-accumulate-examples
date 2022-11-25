@@ -18,4 +18,14 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Set the directories that should be included in the build command for this
 # target when running g++ these will be included as -I/directory/path/
-# target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/catch2)
+# target_include_directories(${PROJECT_NAME} PRIVATE
+# ${PROJECT_SOURCE_DIR}/catch2)
+
+# Set C++ standard
+set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
+
+# Run the tests on every build
+add_custom_target(
+  test_${exercise} ALL
+  DEPENDS ${PROJECT_NAME}
+  COMMAND ${PROJECT_NAME})
