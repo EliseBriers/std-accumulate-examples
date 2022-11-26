@@ -1,14 +1,14 @@
 # Get the exercise name from the current directory
 get_filename_component(root_folder ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 
-string(REPLACE "-" "_" project_name ${root_folder})
+# string(REPLACE "-" "_" project_name ${root_folder})
 
 # Set the minimum version of CMake that can be used To find the cmake version
 # run $ cmake --version
 cmake_minimum_required(VERSION 3.5)
 
 # Set the project name
-project(${project_name})
+project(${root_folder})
 
 # Create a sources variable with a link to all cpp files to compile
 set(SOURCES main.cpp catch2/catch_amalgamated.cpp)
