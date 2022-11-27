@@ -11,7 +11,8 @@ cmake_minimum_required(VERSION 3.5)
 project(${root_folder})
 
 # Create a sources variable with a link to all cpp files to compile
-set(SOURCES main.cpp catch2/catch_amalgamated.cpp)
+set(SOURCES main.cpp catch2/catch_amalgamated.cpp AverageAccumulator.cpp
+            LongestWordAccumulator.cpp)
 
 # Add an executable
 add_executable(${PROJECT_NAME} ${SOURCES})
@@ -26,6 +27,6 @@ set_target_properties(${PROJECT_NAME} PROPERTIES CXX_STANDARD 20)
 
 # Run the tests on every build
 add_custom_target(
-  test_${exercise} ALL
+  test-${PROJECT_NAME} ALL
   DEPENDS ${PROJECT_NAME}
   COMMAND ${PROJECT_NAME})

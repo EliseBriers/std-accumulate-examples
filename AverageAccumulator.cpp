@@ -1,4 +1,5 @@
 #include "AverageAccumulator.h"
+#include <optional>
 
 namespace average_accumulator {
 
@@ -14,4 +15,13 @@ auto operator+(AverageAccumulator accumulator, float value) -> AverageAccumulato
 
     return accumulator;
 }
+
+auto AverageAccumulator::GetAverage() const -> std::optional<float>
+{
+    if (mAmount == 0) {
+        return std::nullopt;
+    }
+    return mTotal / mAmount;
+}
+
 } // namespace average_accumulator
