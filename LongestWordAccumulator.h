@@ -25,4 +25,4 @@ private:
 
 }
 
-#endif
+#endif // !LONGEST_WORD_ACCUMULATOR_H

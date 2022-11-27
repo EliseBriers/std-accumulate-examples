@@ -1,4 +1,5 @@
 #include "AverageAccumulator.h"
+#include "LicencePlateFormatter.h"
 #include "LongestWordAccumulator.h"
 #include "catch2/catch_amalgamated.hpp"
 #include <numeric>
@@ -8,6 +9,7 @@
 
 namespace tests {
 using average_accumulator::AverageAccumulator;
+using licence_plate::LicencePlateFormatter;
 using longest_word::LongestWordAccumulator;
 
 // ╔══════════════════╗
@@ -115,5 +117,53 @@ TEST_CASE("Longest word in middle of scentence.", "[LongestWordAccumulator]")
     const std::string_view subString = inputString.substr(result.Index(), result.Size());
 
     REQUIRE(subString == "number");
+}
+
+// ╔══════════════════════╗
+// ║ Format Licence Plate ║
+// ╚══════════════════════╝
+TEST_CASE("Formatting empty string results in empty licence plate.", "[LicencePlateFormatter]")
+{
+    const std::string_view inputString;
+
+    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicencePlateFormatter());
+
+    REQUIRE(result.Result().empty());
+}
+
+TEST_CASE("Formatting invalid string results in empty licence plate", "[LicencePlateFormatter]")
+{
+    const std::string_view inputString = "*-===>? !";
+
+    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicencePlateFormatter());
+
+    REQUIRE(result.Result().empty());
+}
+
+TEST_CASE("Formatting simple string with separation by type.", "[LicencePlateFormatter]")
+{
+    const std::string_view inputString = "SLy12Sg";
+
+    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicencePlateFormatter());
+
+    REQUIRE(result.Result() == "SLY-12-SG");
+}
+
+TEST_CASE("Formatting simple string with separation by size.", "[LicencePlateFormatter]")
+{
+    const std::string_view inputString = "Hello World";
+
+    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicencePlateFormatter());
+
+    REQUIRE(result.Result() == "HEL-LOW-ORL-D");
+}
+
+TEST_CASE("Formatting string with separation by type and size.", "[LicencePlateFormatter]")
+{
+    const std::string_view inputString = "12pksbl";
+
+    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicencePlateFormatter());
+
+    REQUIRE(result.Result() == "12-PKS-BL");
 }
 }

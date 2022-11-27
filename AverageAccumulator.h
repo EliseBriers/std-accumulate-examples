@@ -19,6 +19,7 @@ private:
     size_t mAmount;
     float mTotal;
 };
+
 } // namespace average_accumulator
 
-#endif
+#endif // !AVERAGE_ACCUMULATOR_H
