@@ -12,7 +12,7 @@ project(${root_folder})
 
 # Create a sources variable with a link to all cpp files to compile
 set(SOURCES main.cpp catch2/catch_amalgamated.cpp AverageAccumulator.cpp
-    LongestWordAccumulator.cpp LicencePlateFormatter.cpp)
+    LongestWordAccumulator.cpp LicensePlateFormatter.cpp)
 
 # Add an executable
 add_executable(${PROJECT_NAME} ${SOURCES})

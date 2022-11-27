@@ -1,8 +1,8 @@
-#include "LicencePlateFormatter.h"
+#include "LicensePlateFormatter.h"
 #include "LongestWordAccumulator.h"
 #include <cctype>
 
-namespace licence_plate {
+namespace license_plate {
 namespace {
     auto GetCharacterTypeOf(char character) -> CharacterType
     {
@@ -17,14 +17,14 @@ namespace {
     }
 }
 
-LicencePlateFormatter::LicencePlateFormatter()
+LicensePlateFormatter::LicensePlateFormatter()
     : mLastChatacter(CharacterType::kInvalidCharacter)
     , mConsecutiveCharacterCount(0U)
 {
-    mResult.resize(10U);
+    mResult.reserve(10U);
 }
 
-auto operator+(LicencePlateFormatter&& formatter, char character) -> LicencePlateFormatter
+auto operator+(LicensePlateFormatter&& formatter, char character) -> LicensePlateFormatter
 {
     CharacterType characterType = GetCharacterTypeOf(character);
 
@@ -49,7 +49,7 @@ auto operator+(LicencePlateFormatter&& formatter, char character) -> LicencePlat
     return formatter;
 }
 
-[[nodiscard]] auto LicencePlateFormatter::Result() const -> std::string
+[[nodiscard]] auto LicensePlateFormatter::Result() const -> std::string
 {
     return mResult;
 }

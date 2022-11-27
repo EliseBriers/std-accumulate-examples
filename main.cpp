@@ -1,5 +1,5 @@
 #include "AverageAccumulator.h"
-#include "LicencePlateFormatter.h"
+#include "LicensePlateFormatter.h"
 #include "LongestWordAccumulator.h"
 #include "catch2/catch_amalgamated.hpp"
 #include <numeric>
@@ -9,7 +9,7 @@
 
 namespace tests {
 using average_accumulator::AverageAccumulator;
-using licence_plate::LicencePlateFormatter;
+using license_plate::LicensePlateFormatter;
 using longest_word::LongestWordAccumulator;
 
 // ╔══════════════════╗
@@ -120,13 +120,14 @@ TEST_CASE("Longest word in middle of scentence.", "[LongestWordAccumulator]")
 }
 
 // ╔══════════════════════╗
-// ║ Format Licence Plate ║
+// ║ Format License Plate ║
 // ╚══════════════════════╝
+// Note: I just randomly typed some license plates, any resemblance with a real world license plate is a coincidence.
 TEST_CASE("Formatting empty string results in empty licence plate.", "[LicencePlateFormatter]")
 {
     const std::string_view inputString;
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicencePlateFormatter());
+    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
 
     REQUIRE(result.Result().empty());
 }
@@ -135,7 +136,7 @@ TEST_CASE("Formatting invalid string results in empty licence plate", "[LicenceP
 {
     const std::string_view inputString = "*-===>? !";
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicencePlateFormatter());
+    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
 
     REQUIRE(result.Result().empty());
 }
@@ -144,7 +145,7 @@ TEST_CASE("Formatting simple string with separation by type.", "[LicencePlateFor
 {
     const std::string_view inputString = "SLy12Sg";
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicencePlateFormatter());
+    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
 
     REQUIRE(result.Result() == "SLY-12-SG");
 }
@@ -153,7 +154,7 @@ TEST_CASE("Formatting simple string with separation by size.", "[LicencePlateFor
 {
     const std::string_view inputString = "Hello World";
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicencePlateFormatter());
+    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
 
     REQUIRE(result.Result() == "HEL-LOW-ORL-D");
 }
@@ -162,7 +163,7 @@ TEST_CASE("Formatting string with separation by type and size.", "[LicencePlateF
 {
     const std::string_view inputString = "12pksbl";
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicencePlateFormatter());
+    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
 
     REQUIRE(result.Result() == "12-PKS-BL");
 }
