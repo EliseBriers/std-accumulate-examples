@@ -2,6 +2,7 @@
 #include "LicensePlateFormatter.h"
 #include "LongestWordAccumulator.h"
 #include "catch2/catch_amalgamated.hpp"
+#include <complex>
 #include <numeric>
 #include <optional>
 #include <string_view>
@@ -42,9 +43,22 @@ TEST_CASE("Accumulate with multiplies results in product.", "[accumulate]")
     REQUIRE(product == 120);
 }
 
-// ╔════════════════════════╗
-// ║ Accumulate With Struct ║
-// ╚════════════════════════╝
+// ╔════════════════════════════════╗
+// ║ Accumulate With Different Type ║
+// ╚════════════════════════════════╝
+TEST_CASE("Accumulate with complex number.", "[accumulate]")
+{
+    std::vector<float> vec { 0.F, 5.F, 2.F };
+
+    const auto result = std::accumulate(vec.cbegin(), vec.cend(), std::complex(0.F, 12.F));
+
+    REQUIRE(result.real() == Catch::Approx(7.F));
+    REQUIRE(result.imag() == Catch::Approx(12.F));
+}
+
+// ╔═══════════════════════╗
+// ║ Accumulate With Class ║
+// ╚═══════════════════════╝
 TEST_CASE("Calculating average of empty vector is nullopt.", "[AverageAccumulator]")
 {
     std::vector<float> vec {};
