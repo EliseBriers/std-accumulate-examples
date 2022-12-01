@@ -2,6 +2,7 @@
 #include "LicensePlateFormatter.h"
 #include "LongestWordAccumulator.h"
 #include "catch2/catch_amalgamated.hpp"
+
 #include <complex>
 #include <numeric>
 #include <optional>
@@ -18,9 +19,10 @@ using longest_word::LongestWordAccumulator;
 // ╚══════════════════╝
 TEST_CASE("Accumulating numbers adds them together.", "[accumulate]")
 {
-    std::vector<int> vec { 1, 2, 3 };
+    const std::vector<int> vec { 1, 2, 3 };
 
-    int sum = accumulate(vec.cbegin(), vec.cend(), 0);
+    const int startValue = 0;
+    const int sum = std::accumulate(vec.cbegin(), vec.cend(), startValue);
 
     REQUIRE(sum == 6);
 }
@@ -29,7 +31,8 @@ TEST_CASE("Accumulating numbers has an offset.", "[accumulate]")
 {
     std::vector<int> vec { 1, 2, 3 };
 
-    int sum = std::accumulate(vec.cbegin(), vec.cend(), 20);
+    const int startValue = 20;
+    const int sum = std::accumulate(vec.cbegin(), vec.cend(), startValue);
 
     REQUIRE(sum == 26);
 }
@@ -38,7 +41,8 @@ TEST_CASE("Accumulate with multiplies results in product.", "[accumulate]")
 {
     std::vector<int> vec { 1, 2, 3, 4, 5 };
 
-    int product = std::accumulate(vec.cbegin(), vec.cend(), 1, std::multiplies());
+    const int startValue = 1;
+    const int product = std::accumulate(vec.cbegin(), vec.cend(), startValue, std::multiplies());
 
     REQUIRE(product == 120);
 }
@@ -48,9 +52,10 @@ TEST_CASE("Accumulate with multiplies results in product.", "[accumulate]")
 // ╚════════════════════════════════╝
 TEST_CASE("Accumulate with complex number.", "[accumulate]")
 {
-    std::vector<float> vec { 0.F, 5.F, 2.F };
+    const std::vector<float> vec { 0.F, 5.F, 2.F };
 
-    const auto result = std::accumulate(vec.cbegin(), vec.cend(), std::complex(0.F, 12.F));
+    // ToDo: Different exaple, don's use complex numbers.
+    const std::complex<float> result = std::accumulate(vec.cbegin(), vec.cend(), std::complex(0.F, 12.F));
 
     REQUIRE(result.real() == Catch::Approx(7.F));
     REQUIRE(result.imag() == Catch::Approx(12.F));
@@ -63,27 +68,29 @@ TEST_CASE("Calculating average of empty vector is nullopt.", "[AverageAccumulato
 {
     std::vector<float> vec {};
 
-    const auto acc = std::accumulate(vec.cbegin(), vec.cend(), AverageAccumulator());
+    const AverageAccumulator acc = std::accumulate(vec.cbegin(), vec.cend(), AverageAccumulator());
 
     REQUIRE(acc.GetAverage() == std::nullopt);
 }
 
 TEST_CASE("Calculating average of 1 number results in that same number.", "[AverageAccumulator]")
 {
-    std::vector<float> vec { 175.F };
+    const std::vector<float> vec { 175.F };
 
-    const auto acc = std::accumulate(vec.cbegin(), vec.cend(), AverageAccumulator());
+    const AverageAccumulator acc = std::accumulate(vec.cbegin(), vec.cend(), AverageAccumulator());
 
-    REQUIRE(acc.GetAverage() == Catch::Approx(175.F));
+    REQUIRE(acc.GetAverage().has_value());
+    REQUIRE(acc.GetAverage().value() == 175.F);
 }
 
 TEST_CASE("Calculating average of some amount of numbers.", "[AverageAccumulator]")
 {
-    std::vector<float> vec { 1.F, 5.F, 16.F, 22.F, 5.F, -5.F };
+    const std::vector<float> vec { 1.F, 5.F, 16.F, 22.F, 5.F, -5.F };
 
-    const auto acc = std::accumulate(vec.cbegin(), vec.cend(), AverageAccumulator());
+    const AverageAccumulator acc = std::accumulate(vec.cbegin(), vec.cend(), AverageAccumulator());
 
-    REQUIRE(acc.GetAverage() == Catch::Approx(7.3333333333F));
+    REQUIRE(acc.GetAverage().has_value());
+    REQUIRE(acc.GetAverage().value() == 7.3333333333F);
 }
 
 // ╔════════════════════════╗
@@ -93,7 +100,7 @@ TEST_CASE("Longest word of empty string results in empty string.", "[LongestWord
 {
     const std::string_view inputString;
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LongestWordAccumulator());
+    const LongestWordAccumulator result = std::accumulate(inputString.cbegin(), inputString.cend(), LongestWordAccumulator());
 
     const std::string_view subString = inputString.substr(result.Index(), result.Size());
 
@@ -104,7 +111,7 @@ TEST_CASE("Longest word at start of scentence.", "[LongestWordAccumulator]")
 {
     const std::string_view inputString = "Hippopotomonstro-sesquipedaliophobia is the fear of long words, how ironic!";
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LongestWordAccumulator());
+    const LongestWordAccumulator result = std::accumulate(inputString.cbegin(), inputString.cend(), LongestWordAccumulator());
 
     const std::string_view subString = inputString.substr(result.Index(), result.Size());
 
@@ -115,7 +122,7 @@ TEST_CASE("Longest word at end of scentence.", "[LongestWordAccumulator]")
 {
     const std::string_view inputString = "Long live the Emperor!";
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LongestWordAccumulator());
+    const LongestWordAccumulator result = std::accumulate(inputString.cbegin(), inputString.cend(), LongestWordAccumulator());
 
     const std::string_view subString = inputString.substr(result.Index(), result.Size());
 
@@ -124,13 +131,13 @@ TEST_CASE("Longest word at end of scentence.", "[LongestWordAccumulator]")
 
 TEST_CASE("Longest word in middle of scentence.", "[LongestWordAccumulator]")
 {
-    const std::string_view inputString = "666, The number of the beast!";
+    const std::string_view inputString = "Caught somewhere in time.";
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LongestWordAccumulator());
+    const LongestWordAccumulator result = std::accumulate(inputString.cbegin(), inputString.cend(), LongestWordAccumulator());
 
     const std::string_view subString = inputString.substr(result.Index(), result.Size());
 
-    REQUIRE(subString == "number");
+    REQUIRE(subString == "somewhere");
 }
 
 // ╔══════════════════════╗
@@ -141,7 +148,7 @@ TEST_CASE("Formatting empty string results in empty licence plate.", "[LicencePl
 {
     const std::string_view inputString;
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
+    const LicensePlateFormatter result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
 
     REQUIRE(result.Result().empty());
 }
@@ -150,7 +157,7 @@ TEST_CASE("Formatting invalid string results in empty licence plate", "[LicenceP
 {
     const std::string_view inputString = "*-===>? !";
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
+    const LicensePlateFormatter result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
 
     REQUIRE(result.Result().empty());
 }
@@ -159,7 +166,7 @@ TEST_CASE("Formatting simple string with separation by type.", "[LicencePlateFor
 {
     const std::string_view inputString = "SLy12Sg";
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
+    const LicensePlateFormatter result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
 
     REQUIRE(result.Result() == "SLY-12-SG");
 }
@@ -168,7 +175,7 @@ TEST_CASE("Formatting simple string with separation by size.", "[LicencePlateFor
 {
     const std::string_view inputString = "Hello World";
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
+    const LicensePlateFormatter result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
 
     REQUIRE(result.Result() == "HEL-LOW-ORL-D");
 }
@@ -177,7 +184,7 @@ TEST_CASE("Formatting string with separation by type and size.", "[LicencePlateF
 {
     const std::string_view inputString = "12pksbl";
 
-    const auto result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
+    const LicensePlateFormatter result = std::accumulate(inputString.cbegin(), inputString.cend(), LicensePlateFormatter());
 
     REQUIRE(result.Result() == "12-PKS-BL");
 }
