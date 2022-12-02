@@ -10,10 +10,10 @@ class AverageAccumulator {
 public:
     AverageAccumulator();
 
-    [[nodiscard]] auto GetAverage() const -> std::optional<float>;
+    std::optional<float> GetAverage() const;
 
     // Operator will automatically be detected by std::accumulate.
-    friend auto operator+(AverageAccumulator accumulator, float value) -> AverageAccumulator;
+    friend AverageAccumulator operator+(AverageAccumulator accumulator, float value);
 
 private:
     size_t mAmount;

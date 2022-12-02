@@ -15,15 +15,15 @@ class LicensePlateFormatter {
 public:
     LicensePlateFormatter();
 
-    friend auto operator+(LicensePlateFormatter&& formatter, char character) -> LicensePlateFormatter;
+    friend LicensePlateFormatter operator+(LicensePlateFormatter&& formatter, char character);
 
-    [[nodiscard]] auto Result() const -> std::string;
+    std::string Result() const;
 
     // Ensure copy operators are disabled for performance reasons.
     LicensePlateFormatter(const LicensePlateFormatter& other) = delete;
     LicensePlateFormatter(LicensePlateFormatter&& other) = default;
-    auto operator=(const LicensePlateFormatter& other) -> LicensePlateFormatter& = delete;
-    auto operator=(LicensePlateFormatter&& other) noexcept -> LicensePlateFormatter& = default;
+    LicensePlateFormatter& operator=(const LicensePlateFormatter& other) = delete;
+    LicensePlateFormatter& operator=(LicensePlateFormatter&& other) noexcept = default;
 
 private:
     std::string mResult;

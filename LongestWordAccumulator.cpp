@@ -3,7 +3,7 @@
 
 namespace longest_word {
 namespace {
-    auto IsWordCharacter(char character) -> bool
+    bool IsWordCharacter(char character)
     {
         if (character == '-') {
             return true;
@@ -28,7 +28,7 @@ LongestWordAccumulator::LongestWordAccumulator()
 {
 }
 
-auto operator+(LongestWordAccumulator accumulator, char character) -> LongestWordAccumulator
+LongestWordAccumulator operator+(LongestWordAccumulator accumulator, char character)
 {
     // Check if the current character is part of a "word character".
     if (IsWordCharacter(character)) {
@@ -42,7 +42,8 @@ auto operator+(LongestWordAccumulator accumulator, char character) -> LongestWor
     }
 
     // Overwrite longest if current is longer.
-    if (accumulator.mCurrentWordSize > accumulator.mLongestWordSize) {
+    bool foundNewLongestWord = accumulator.mCurrentWordSize > accumulator.mLongestWordSize;
+    if (foundNewLongestWord) {
         accumulator.mLongestWordSize = accumulator.mCurrentWordSize;
         accumulator.mLongestWordIndex = accumulator.mCurrentWordIndex;
     }
@@ -51,12 +52,14 @@ auto operator+(LongestWordAccumulator accumulator, char character) -> LongestWor
     return accumulator;
 }
 
-auto LongestWordAccumulator::Index() const -> size_t
+size_t LongestWordAccumulator::Index() const
 {
     return mLongestWordIndex;
 }
-auto LongestWordAccumulator::Size() const -> size_t
+
+size_t LongestWordAccumulator::Size() const
 {
     return mLongestWordSize;
 }
+
 }

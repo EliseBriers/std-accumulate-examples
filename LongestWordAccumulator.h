@@ -10,10 +10,10 @@ class LongestWordAccumulator {
 
 public:
     LongestWordAccumulator();
-    friend auto operator+(LongestWordAccumulator accumulator, char character) -> LongestWordAccumulator;
+    friend LongestWordAccumulator operator+(LongestWordAccumulator accumulator, char character);
 
-    [[nodiscard]] auto Index() const -> size_t;
-    [[nodiscard]] auto Size() const -> size_t;
+    size_t Index() const;
+    size_t Size() const;
 
 private:
     size_t mCurrentWordIndex;

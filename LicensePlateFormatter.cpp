@@ -4,7 +4,7 @@
 
 namespace license_plate {
 namespace {
-    auto GetCharacterTypeOf(char character) -> CharacterType
+    CharacterType GetCharacterTypeOf(char character)
     {
         if (isalpha(character) != 0) {
             return CharacterType::kLetter;
@@ -24,9 +24,9 @@ LicensePlateFormatter::LicensePlateFormatter()
     mResult.reserve(10U);
 }
 
-auto operator+(LicensePlateFormatter&& formatter, char character) -> LicensePlateFormatter
+LicensePlateFormatter operator+(LicensePlateFormatter&& formatter, char character)
 {
-    CharacterType characterType = GetCharacterTypeOf(character);
+    const CharacterType characterType = GetCharacterTypeOf(character);
 
     // Early return for invalid characters.
     if (characterType == CharacterType::kInvalidCharacter) {
@@ -49,7 +49,7 @@ auto operator+(LicensePlateFormatter&& formatter, char character) -> LicensePlat
     return formatter;
 }
 
-[[nodiscard]] auto LicensePlateFormatter::Result() const -> std::string
+std::string LicensePlateFormatter::Result() const
 {
     return mResult;
 }

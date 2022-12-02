@@ -8,7 +8,8 @@ AverageAccumulator::AverageAccumulator()
     , mAmount(0U)
 {
 }
-auto operator+(AverageAccumulator accumulator, float value) -> AverageAccumulator
+
+AverageAccumulator operator+(AverageAccumulator accumulator, float value)
 {
     ++accumulator.mAmount;
     accumulator.mTotal += value;
@@ -16,7 +17,7 @@ auto operator+(AverageAccumulator accumulator, float value) -> AverageAccumulato
     return accumulator;
 }
 
-auto AverageAccumulator::GetAverage() const -> std::optional<float>
+std::optional<float> AverageAccumulator::GetAverage() const
 {
     if (mAmount == 0) {
         return std::nullopt;
