@@ -8,7 +8,7 @@ using std::size_t;
 enum class CharacterType {
     kDigit,
     kLetter,
-    kInvalidCharacter
+    kInvalid
 };
 
 class LicensePlateFormatter {

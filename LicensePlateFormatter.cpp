@@ -13,12 +13,12 @@ namespace {
             return CharacterType::kDigit;
         }
 
-        return CharacterType::kInvalidCharacter;
+        return CharacterType::kInvalid;
     }
 }
 
 LicensePlateFormatter::LicensePlateFormatter()
-    : mLastChatacter(CharacterType::kInvalidCharacter)
+    : mLastChatacter(CharacterType::kInvalid)
     , mConsecutiveCharacterCount(0U)
 {
     mResult.reserve(10U);
@@ -29,7 +29,7 @@ LicensePlateFormatter operator+(LicensePlateFormatter&& formatter, char characte
     const CharacterType characterType = GetCharacterTypeOf(character);
 
     // Early return for invalid characters.
-    if (characterType == CharacterType::kInvalidCharacter) {
+    if (characterType == CharacterType::kInvalid) {
         return formatter;
     }
 
