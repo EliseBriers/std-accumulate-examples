@@ -12,15 +12,15 @@ public:
     LongestWordAccumulator();
     friend LongestWordAccumulator operator+(LongestWordAccumulator accumulator, char character);
 
-    size_t Index() const;
+    size_t Start() const;
     size_t Size() const;
 
 private:
-    size_t mCurrentWordIndex;
-    size_t mCurrentWordSize;
-    size_t mLongestWordIndex;
-    size_t mLongestWordSize;
     size_t mIndex;
+    size_t mCurrentWordStart;
+    size_t mCurrentWordSize;
+    size_t mLongestWordStart;
+    size_t mLongestWordSize;
 };
 
 }

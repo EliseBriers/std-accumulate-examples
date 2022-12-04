@@ -20,41 +20,39 @@ namespace {
 }
 
 LongestWordAccumulator::LongestWordAccumulator()
-    : mCurrentWordIndex(0U)
+    : mIndex(0U)
+    , mCurrentWordStart(0U)
     , mCurrentWordSize(0U)
-    , mLongestWordIndex(0U)
+    , mLongestWordStart(0U)
     , mLongestWordSize(0U)
-    , mIndex(0U)
 {
 }
 
 LongestWordAccumulator operator+(LongestWordAccumulator accumulator, char character)
 {
-    // Check if the current character is part of a "word character".
     if (IsWordCharacter(character)) {
-        // Set correct index if there's not ongoing longest word.
-        if (accumulator.mCurrentWordSize == 0) {
-            accumulator.mCurrentWordIndex = accumulator.mIndex;
+        const bool foundNewWord = accumulator.mCurrentWordSize == 0;
+        if (foundNewWord) {
+            accumulator.mCurrentWordStart = accumulator.mIndex;
         }
         ++accumulator.mCurrentWordSize;
     } else {
         accumulator.mCurrentWordSize = 0;
     }
 
-    // Overwrite longest if current is longer.
-    bool foundNewLongestWord = accumulator.mCurrentWordSize > accumulator.mLongestWordSize;
+    const bool foundNewLongestWord = accumulator.mCurrentWordSize > accumulator.mLongestWordSize;
     if (foundNewLongestWord) {
         accumulator.mLongestWordSize = accumulator.mCurrentWordSize;
-        accumulator.mLongestWordIndex = accumulator.mCurrentWordIndex;
+        accumulator.mLongestWordStart = accumulator.mCurrentWordStart;
     }
 
     ++accumulator.mIndex;
     return accumulator;
 }
 
-size_t LongestWordAccumulator::Index() const
+size_t LongestWordAccumulator::Start() const
 {
-    return mLongestWordIndex;
+    return mLongestWordStart;
 }
 
 size_t LongestWordAccumulator::Size() const

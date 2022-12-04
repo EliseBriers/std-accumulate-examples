@@ -3,11 +3,11 @@
 #include "LongestWordAccumulator.h"
 #include "catch2/catch_amalgamated.hpp"
 
-#include <vector>
 #include <complex>
 #include <numeric>
 #include <optional>
 #include <string_view>
+#include <vector>
 
 namespace tests {
 using average_accumulator::AverageAccumulator;
@@ -55,7 +55,7 @@ TEST_CASE("Accumulate with complex number.", "[accumulate]")
     const std::vector<float> vec { 0.F, 5.F, 2.F };
 
     const std::complex startValue(0.F, 12.F);
-    const std::complex<float> result = std::accumulate(vec.cbegin(), vec.cend(), startValue);
+    const std::complex result = std::accumulate(vec.cbegin(), vec.cend(), startValue);
 
     REQUIRE(result.real() == Catch::Approx(7.F));
     REQUIRE(result.imag() == Catch::Approx(12.F));
@@ -90,7 +90,7 @@ TEST_CASE("Calculating average of some amount of numbers.", "[AverageAccumulator
     const AverageAccumulator acc = std::accumulate(vec.cbegin(), vec.cend(), AverageAccumulator());
 
     REQUIRE(acc.GetAverage().has_value());
-    REQUIRE(acc.GetAverage().value() == 7.3333333333F);
+    REQUIRE(acc.GetAverage().value() == Catch::Approx(7.3333333333F));
 }
 
 // ╔════════════════════════╗
@@ -102,7 +102,7 @@ TEST_CASE("Longest word of empty string results in empty string.", "[LongestWord
 
     const LongestWordAccumulator result = std::accumulate(inputString.cbegin(), inputString.cend(), LongestWordAccumulator());
 
-    const std::string_view subString = inputString.substr(result.Index(), result.Size());
+    const std::string_view subString = inputString.substr(result.Start(), result.Size());
 
     REQUIRE(subString.empty());
 }
@@ -113,7 +113,7 @@ TEST_CASE("Longest word at start of scentence.", "[LongestWordAccumulator]")
 
     const LongestWordAccumulator result = std::accumulate(inputString.cbegin(), inputString.cend(), LongestWordAccumulator());
 
-    const std::string_view subString = inputString.substr(result.Index(), result.Size());
+    const std::string_view subString = inputString.substr(result.Start(), result.Size());
 
     REQUIRE(subString == "Hippopotomonstro-sesquipedaliophobia");
 }
@@ -124,7 +124,7 @@ TEST_CASE("Longest word at end of scentence.", "[LongestWordAccumulator]")
 
     const LongestWordAccumulator result = std::accumulate(inputString.cbegin(), inputString.cend(), LongestWordAccumulator());
 
-    const std::string_view subString = inputString.substr(result.Index(), result.Size());
+    const std::string_view subString = inputString.substr(result.Start(), result.Size());
 
     REQUIRE(subString == "Emperor");
 }
@@ -135,9 +135,9 @@ TEST_CASE("Longest word in middle of scentence.", "[LongestWordAccumulator]")
 
     const LongestWordAccumulator result = std::accumulate(inputString.cbegin(), inputString.cend(), LongestWordAccumulator());
 
-    const std::string_view subString = inputString.substr(result.Index(), result.Size());
+    const std::string_view longestWord = inputString.substr(result.Start(), result.Size());
 
-    REQUIRE(subString == "number");
+    REQUIRE(longestWord == "number");
 }
 
 // ╔══════════════════════╗
