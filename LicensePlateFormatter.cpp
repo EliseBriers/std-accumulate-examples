@@ -33,10 +33,12 @@ LicensePlateFormatter operator+(LicensePlateFormatter&& formatter, char characte
         return formatter;
     }
 
-    // Check if character type switch has occured.
-    if (characterType != formatter.mLastChatacter || formatter.mConsecutiveCharacterCount >= 3) {
-        // Prevent hyphen at start of string.
-        if (!formatter.mResult.empty()) {
+    const bool hasCharacterSwitched = characterType != formatter.mLastChatacter;
+    const bool hasReachedSegmentMaxSize = formatter.mConsecutiveCharacterCount >= 3;
+    const bool newSegment = hasCharacterSwitched || hasReachedSegmentMaxSize;
+    if (newSegment) {
+        const bool hasOngoingResult = !formatter.mResult.empty();
+        if (hasOngoingResult) {
             formatter.mResult += '-';
         }
         formatter.mLastChatacter = characterType;
