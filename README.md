@@ -3,7 +3,7 @@
 [![Lisence](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ## Introduction
-This repo contains all the code files shown in the video [ToDo: video name]. `main.cpp` contains all the unit tests, other classes can be found in their corresponding files.
+This repo contains all the code files shown in the video [C++ Accumulate: More Powerful Than You Think](https://youtu.be/mvC81eguSn8). `main.cpp` contains all the unit tests, other classes can be found in their corresponding files.
 
 ## Building and testing
 Build the project using cmake and a compiler with C++ 20 abilities. Most modern compilers should work. Making the file will result in the unit tests getting executed automatically.
