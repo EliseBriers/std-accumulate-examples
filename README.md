@@ -7,8 +7,8 @@
     Git repo for the video <a href="https://www.youtube.com/watch?v=mvC81eguSn8">C++ Accumulate: More Powerful Than You Think</a>.
     <br>
     <sub>By <a href="https://www.youtube.com/@ElisePlusPlus">Elise++</a></sub><br><br>
-    <a href="https://github.com/EliseBriers/std-accumulate-examples/actions/workflows/cmake.yml">
-      <img src="https://github.com/EliseBriers/std-accumulate-examples/actions/workflows/cmake.yml/badge.svg">
+    <a href="/../../actions/workflows/cmake.yml">
+      <img src="/../../actions/workflows/cmake.yml/badge.svg">
     </a>
     <a href="LICENSE">
       <img src="https://img.shields.io/badge/License-MIT-yellow.svg">
